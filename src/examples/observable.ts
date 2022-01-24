@@ -1,9 +1,9 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { combineLatest, map } from "rxjs";
 
-import * as statemine from "./chains/statemine";
-import * as karura from "./chains/karura";
-import * as bifrost from "./chains/bifrost";
+import * as statemine from "../chains/statemine";
+import * as karura from "../chains/karura";
+import * as bifrost from "../chains/bifrost";
 
 const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
 
