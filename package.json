@@ -4,7 +4,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "version": "0.0.1-beta-rc7",
+  "version": "0.0.1-beta-rc9",
   "scripts": {
     "build": "rm -rf ./dist && yarn run build:esm && yarn run build:cjs",
     "build:esm": "tsc --declaration --module es2020 --target es2017 --outDir dist/esm",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@polkadot/api": "^7.5.1",
+    "colors": "^1.4.0",
     "rxjs": "^7.5.2",
     "yargs": "^17.3.1"
   }
