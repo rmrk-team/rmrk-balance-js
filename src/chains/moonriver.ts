@@ -13,7 +13,8 @@ import { Balance } from "../types/balance";
 const assetId = "182365888117048807484804376330534607370";
 const api$ = new ReplaySubject<ApiPromise>();
 
-export const provideApi = (api: ApiPromise) => api$.next(api);
+export const provideApi = async (api: ApiPromise | Promise<ApiPromise>) =>
+  api$.next(await api);
 
 export const balance$ = (address: string) => {
   return combineLatest([api$, of(address)]).pipe(

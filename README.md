@@ -7,10 +7,8 @@
 ```typescript
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { combineLatest, map } from "rxjs";
-
 import { statemine, karura, bifrost, moonriver } from "@rmrk/rmrk-balance-js";
 
-// Address that holds RMRK on substrate chains
 const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
 
 // Get a stream of each RMRK balance state
@@ -19,7 +17,7 @@ const moonriverBalance$ = moonriver.balance$(address);
 const karuraBalance$ = karura.balance$(address);
 const bifrostBalance$ = bifrost.balance$(address);
 
-// Combine into a stream of total for verification.
+// Combine into total for verification.
 const total$ = combineLatest([
   statemineBalance$,
   moonriverBalance$,
@@ -37,48 +35,58 @@ const total$ = combineLatest([
   })
 );
 
+// Print total user RMRK balance
 total$.subscribe((total) => {
   console.log({ total });
 });
 
-ApiPromise.create({
-  provider: new WsProvider("wss://statemine-rpc.polkadot.io"),
-}).then(statemine.provideApi);
+// Can be done at a later time than starting the subscriptions.
+// They will wait for the apis to be ready.
 
-ApiPromise.create({
-  provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
-}).then(moonriver.provideApi);
+statemine.provideApi(
+  ApiPromise.create({
+    provider: new WsProvider("wss://statemine-rpc.polkadot.io"),
+  })
+);
 
-ApiPromise.create({
-  provider: new WsProvider("wss://karura.polkawallet.io"),
-}).then(karura.provideApi);
+moonriver.provideApi(
+  ApiPromise.create({
+    provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
+  })
+);
 
-ApiPromise.create({
-  provider: new WsProvider("wss://bifrost-rpc.liebi.com/ws"),
-}).then(bifrost.provideApi);
+karura.provideApi(
+  ApiPromise.create({
+    provider: new WsProvider("wss://karura.polkawallet.io"),
+  })
+);
+
+bifrost.provideApi(
+  ApiPromise.create({
+    provider: new WsProvider("wss://bifrost-rpc.liebi.com/ws"),
+  })
+);
 ```
 
 ### Promise
 
 ```typescript
 import { ApiPromise, WsProvider } from "@polkadot/api";
-
 import { moonriver, karura } from "@rmrk/rmrk-balance-js";
 
 async function main() {
   const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
 
-  const [moonriverApi, karuraApi] = await Promise.all([
+  moonriver.provideApi(
     ApiPromise.create({
       provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
-    }),
+    })
+  );
+  karura.provideApi(
     ApiPromise.create({
       provider: new WsProvider("wss://karura.polkawallet.io"),
-    }),
-  ]);
-
-  moonriver.provideApi(moonriverApi);
-  karura.provideApi(karuraApi);
+    })
+  );
 
   const [moonbalance, karurabalance] = await Promise.all([
     moonriver.balance(address),
@@ -91,4 +99,6 @@ async function main() {
     total: moonbalance.balance + karurabalance.balance,
   });
 }
+
+main();
 ```

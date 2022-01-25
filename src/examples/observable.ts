@@ -37,20 +37,29 @@ total$.subscribe((total) => {
   console.log({ total });
 });
 
-setTimeout(() => {
+// Can be done at a later time than starting the subscriptions.
+// They will wait for the apis to be ready.
+
+statemine.provideApi(
   ApiPromise.create({
     provider: new WsProvider("wss://statemine-rpc.polkadot.io"),
-  }).then(statemine.provideApi);
+  })
+);
 
+moonriver.provideApi(
   ApiPromise.create({
     provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
-  }).then(moonriver.provideApi);
+  })
+);
 
+karura.provideApi(
   ApiPromise.create({
     provider: new WsProvider("wss://karura.polkawallet.io"),
-  }).then(karura.provideApi);
+  })
+);
 
+bifrost.provideApi(
   ApiPromise.create({
     provider: new WsProvider("wss://bifrost-rpc.liebi.com/ws"),
-  }).then(bifrost.provideApi);
-}, 1500);
+  })
+);
