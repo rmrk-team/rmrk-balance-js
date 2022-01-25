@@ -13,6 +13,13 @@ Read balances of the chains that support the $RMRK token. The following chains a
 yarn add | npm install @rmrk-team/rmrk-balance-js
 ```
 
+### CLI
+
+```bash
+npm install -g @rmrk-team/rmrk-balance-js
+rmrk-balance -a YOUR_ADDRESS
+```
+
 ### Observables
 
 ```typescript
