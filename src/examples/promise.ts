@@ -18,7 +18,7 @@ async function main() {
 
   const [moonbalance, karurabalance] = await Promise.all([
     moonriver.balance(address),
-    moonriver.balance(address),
+    karura.balance(address),
   ]);
 
   console.log({
