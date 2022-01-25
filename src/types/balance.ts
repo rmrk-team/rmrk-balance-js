@@ -16,8 +16,6 @@ export const concat = (...balances: Balance[]) => {
   );
 };
 
-export const toNumber = () => {};
-
 export const format = (balance: Balance) =>
   formatBalance(
     balance.balance,
