@@ -6,12 +6,12 @@ import {
   fromEventPattern,
   mergeMap,
   of,
-  Subject,
+  ReplaySubject,
 } from "rxjs";
 import { Balance } from "../types/balance";
 
 const assetId = 0;
-const api$ = new Subject<ApiPromise>();
+const api$ = new ReplaySubject<ApiPromise>();
 
 export const provideApi = (api: ApiPromise) => api$.next(api);
 

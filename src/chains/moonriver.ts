@@ -10,7 +10,7 @@ import {
 } from "rxjs";
 import { Balance } from "../types/balance";
 
-const assetId = 8;
+const assetId = "182365888117048807484804376330534607370";
 const api$ = new ReplaySubject<ApiPromise>();
 
 export const provideApi = (api: ApiPromise) => api$.next(api);
@@ -20,8 +20,9 @@ export const balance$ = (address: string) => {
     mergeMap(([api, address]) => {
       return fromEventPattern<Balance>(
         (handler) => {
+          const assetIdU128 = api.createType("U128", assetId);
           return api.query.assets.account(
-            assetId,
+            assetIdU128,
             address,
             (payload: Codec) => {
               handler(decodeBalance(payload));
@@ -38,7 +39,8 @@ export const balance$ = (address: string) => {
 
 export const balance = async (address: string) => {
   const api = await firstValueFrom(api$);
-  const payload = await api.query.assets.account(assetId, address);
+  const assetIdU128 = api.createType("U128", assetId);
+  const payload = await api.query.assets.account(assetIdU128, address);
   return decodeBalance(payload);
 };
 
