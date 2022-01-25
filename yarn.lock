@@ -412,9 +412,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rmrk/rmrk-balance-js@workspace:.":
+"@rmrk-team/rmrk-balance-js@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@rmrk/rmrk-balance-js@workspace:."
+  resolution: "@rmrk-team/rmrk-balance-js@workspace:."
   dependencies:
     "@polkadot/api": ^7.5.1
     rxjs: ^7.5.2
