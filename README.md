@@ -1,13 +1,29 @@
 # @rmrk/rmrk-balance-js
 
+Read balances of the chains that support the $RMRK token. The following chains are currently supported:
+
+- [x] Statemine
+- [x] Moonriver
+- [x] Karura
+- [x] Bifrost
+
 ## Quickstart
+
+```
+yarn add | npm install @rmrk-team/rmrk-balance-js
+```
 
 ### Observables
 
 ```typescript
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { combineLatest, map } from "rxjs";
-import { statemine, karura, bifrost, moonriver } from "@rmrk/rmrk-balance-js";
+import {
+  statemine,
+  karura,
+  bifrost,
+  moonriver,
+} from "@rmrk-team/rmrk-balance-js";
 
 const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
 
@@ -72,7 +88,7 @@ bifrost.provideApi(
 
 ```typescript
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { moonriver, karura } from "@rmrk/rmrk-balance-js";
+import { moonriver, karura } from "@rmrk-team/rmrk-balance-js";
 
 async function main() {
   const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
