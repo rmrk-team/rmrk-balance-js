@@ -4,6 +4,7 @@
   "main": "dist/cjs/src/index.js",
   "module": "dist/esm/src/index.js",
   "types": "dist/esm/src/index.d.ts",
+  "version": "0.0.1",
   "scripts": {
     "build": "rm -rf ./dist && yarn run build:esm && yarn run build:cjs",
     "build:esm": "tsc --declaration --module es2020 --target es2017 --outDir dist/esm",
