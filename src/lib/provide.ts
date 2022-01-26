@@ -1,8 +1,8 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { statemine } from "../chains/statemine";
-import { moonriver } from "../chains/moonriver";
-import { karura } from "../chains/karura";
-import { bifrost } from "../chains/bifrost";
+import { statemine } from "../networks/statemine";
+import { moonriver } from "../networks/moonriver";
+import { karura } from "../networks/karura";
+import { bifrost } from "../networks/bifrost";
 
 export const provideDefaults = () => {
   statemine.provideContext(

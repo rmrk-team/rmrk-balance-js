@@ -1,4 +1,3 @@
-import { ApiPromise, WsProvider } from "@polkadot/api";
 import * as $RMRK from "../";
 
 async function main() {
@@ -11,11 +10,9 @@ async function main() {
     $RMRK.karura.balance(address),
   ]);
 
-  console.log({
-    moonbalance,
-    karurabalance,
-    total: moonbalance.balance + karurabalance.balance,
-  });
+  const total = $RMRK.concat(moonbalance, karurabalance);
+
+  console.log($RMRK.format(total));
 }
 
 main();
