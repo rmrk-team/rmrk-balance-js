@@ -6,7 +6,6 @@ console.debug = function () {};
 console.warn = function () {};
 console.error = function () {};
 
-import { ApiPromise, WsProvider } from "@polkadot/api";
 import {
   catchError,
   combineLatest,
@@ -17,12 +16,7 @@ import {
 } from "rxjs";
 import colors from "colors/safe";
 
-import { statemine } from "./chains/statemine";
-import { moonriver } from "./chains/moonriver";
-import { karura } from "./chains/karura";
-import { bifrost } from "./chains/bifrost";
-import { Balance, format } from ".";
-import * as A from "./types/address";
+import * as $RMRK from "./";
 
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
@@ -30,44 +24,29 @@ const argv = yargs(hideBin(process.argv)).argv;
 
 const address = argv.address || argv.a;
 
-statemine.provideContext(
-  ApiPromise.create({
-    provider: new WsProvider("wss://statemine-rpc.polkadot.io"),
-  })
-);
+$RMRK.provideDefaults();
 
-moonriver.provideContext(
-  ApiPromise.create({
-    provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
-  })
-);
-
-karura.provideContext(
-  ApiPromise.create({
-    provider: new WsProvider("wss://karura.polkawallet.io"),
-  })
-);
-
-bifrost.provideContext(
-  ApiPromise.create({
-    provider: new WsProvider("wss://bifrost-rpc.liebi.com/ws"),
-  })
-);
-
-const addressErrorCatcher = catchError<Balance, Observable<A.FormatError>>(
-  (error: any, caught) => {
-    if (A.FormatError.is(error)) {
-      return of(error);
-    }
-    return throwError(() => error);
+const addressErrorCatcher = catchError<
+  $RMRK.Balance,
+  Observable<$RMRK.FormatError>
+>((error: any, caught) => {
+  if ($RMRK.FormatError.is(error)) {
+    return of(error);
   }
-);
+  return throwError(() => error);
+});
 
 // Get a stream of each RMRK balance state
-const statemineBalance$ = statemine.balance$(address).pipe(addressErrorCatcher);
-const moonriverBalance$ = moonriver.balance$(address).pipe(addressErrorCatcher);
-const karuraBalance$ = karura.balance$(address).pipe(addressErrorCatcher);
-const bifrostBalance$ = bifrost.balance$(address).pipe(addressErrorCatcher);
+const statemineBalance$ = $RMRK.statemine
+  .balance$(address)
+  .pipe(addressErrorCatcher);
+const moonriverBalance$ = $RMRK.moonriver
+  .balance$(address)
+  .pipe(addressErrorCatcher);
+const karuraBalance$ = $RMRK.karura.balance$(address).pipe(addressErrorCatcher);
+const bifrostBalance$ = $RMRK.bifrost
+  .balance$(address)
+  .pipe(addressErrorCatcher);
 
 log(colors.blue("Connecting to chains..."));
 
@@ -87,10 +66,10 @@ const balances$ = combineLatest([
         "total",
         {
           balance:
-            (A.FormatError.is(statemine) ? BigInt(0) : statemine.balance) +
-            (A.FormatError.is(moonriver) ? BigInt(0) : moonriver.balance) +
-            (A.FormatError.is(karura) ? BigInt(0) : karura.balance) +
-            (A.FormatError.is(bifrost) ? BigInt(0) : bifrost.balance),
+            ($RMRK.FormatError.is(statemine) ? BigInt(0) : statemine.balance) +
+            ($RMRK.FormatError.is(moonriver) ? BigInt(0) : moonriver.balance) +
+            ($RMRK.FormatError.is(karura) ? BigInt(0) : karura.balance) +
+            ($RMRK.FormatError.is(bifrost) ? BigInt(0) : bifrost.balance),
         },
       ],
     ];
@@ -103,13 +82,13 @@ balances$.subscribe((balances) => {
   log(
     balances
       .map(([name, balance]) => {
-        if (A.FormatError.is(balance)) {
+        if ($RMRK.FormatError.is(balance)) {
           return `${name}: ${colors.gray(
             "supplied address not valid for network"
           )}`;
         } else {
           return `${name}: ${colors.green(
-            format(balance as Balance)
+            $RMRK.format(balance as $RMRK.Balance)
           )} ${colors.magenta("RMRK")}`;
         }
       })
