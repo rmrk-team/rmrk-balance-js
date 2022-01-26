@@ -5,7 +5,6 @@ console.log = function () {};
 console.debug = function () {};
 console.warn = function () {};
 console.error = function () {};
-
 import {
   catchError,
   combineLatest,
@@ -29,7 +28,7 @@ $RMRK.provideDefaults();
 const addressErrorCatcher = catchError<
   $RMRK.Balance,
   Observable<$RMRK.FormatError>
->((error: any, caught) => {
+>((error: unknown) => {
   if ($RMRK.FormatError.is(error)) {
     return of(error);
   }

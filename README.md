@@ -92,3 +92,57 @@ $RMRK.moonriver.balance("0xfv...6c1h").then(({ balance }) => {
   console.log($RMRK.format(balance));
 });
 ```
+
+### Observable `balance$` API : Error handling
+
+```typescript
+import {
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  throwError,
+} from "rxjs";
+
+import * as $RMRK from "@rmrk-team/rmrk-balance-js";
+
+const address = "...";
+
+$RMRK.provideDefaults();
+
+const addressErrorCatcher = catchError<
+  $RMRK.Balance,
+  Observable<$RMRK.FormatError>
+>((error: unknown) => {
+  if ($RMRK.FormatError.is(error)) {
+    return of(error);
+  }
+  return throwError(() => error);
+});
+
+const statemineBalance$ = $RMRK.statemine
+  .balance$(address)
+  .pipe(addressErrorCatcher);
+
+const bifrostBalance$ = $RMRK.bifrost
+  .balance$(address)
+  .pipe(addressErrorCatcher);
+
+const total$ = combineLatest([statemineBalance$, bifrostBalance$]).pipe(
+  map((balances) => {
+    const total = balances.reduce<$RMRK.Balance>((acc, next) => {
+      return $RMRK.concat(
+        acc,
+        $RMRK.FormatError.is(next) ? $RMRK.empty() : next
+      );
+    }, $RMRK.empty());
+
+    return total;
+  })
+);
+
+total$.subscribe((total) => {
+  console.log($RMRK.format(total));
+});
+```
