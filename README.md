@@ -1,4 +1,4 @@
-# @rmrk/rmrk-balance-js
+# @rmrk-team/rmrk-balance-js
 
 Read balances of the chains that support the $RMRK token. The following chains are currently supported:
 
