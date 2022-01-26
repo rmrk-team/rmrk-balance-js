@@ -40,10 +40,13 @@ const addressErrorCatcher = catchError<
 const statemineBalance$ = $RMRK.statemine
   .balance$(address)
   .pipe(addressErrorCatcher);
+
 const moonriverBalance$ = $RMRK.moonriver
   .balance$(address)
   .pipe(addressErrorCatcher);
+
 const karuraBalance$ = $RMRK.karura.balance$(address).pipe(addressErrorCatcher);
+
 const bifrostBalance$ = $RMRK.bifrost
   .balance$(address)
   .pipe(addressErrorCatcher);
@@ -57,21 +60,22 @@ const balances$ = combineLatest([
   bifrostBalance$,
 ]).pipe(
   map(([statemine, moonriver, karura, bifrost]) => {
+    const total = [statemine, moonriver, karura, bifrost].reduce<$RMRK.Balance>(
+      (acc, next) => {
+        return $RMRK.concat(
+          acc,
+          $RMRK.FormatError.is(next) ? $RMRK.empty() : next
+        );
+      },
+      $RMRK.empty()
+    );
+
     return [
       ["statemine", statemine],
       ["moonriver", moonriver],
       ["karura", karura],
       ["bifrost", bifrost],
-      [
-        "total",
-        {
-          balance:
-            ($RMRK.FormatError.is(statemine) ? BigInt(0) : statemine.balance) +
-            ($RMRK.FormatError.is(moonriver) ? BigInt(0) : moonriver.balance) +
-            ($RMRK.FormatError.is(karura) ? BigInt(0) : karura.balance) +
-            ($RMRK.FormatError.is(bifrost) ? BigInt(0) : bifrost.balance),
-        },
-      ],
+      ["total", total],
     ];
   })
 );

@@ -5,6 +5,12 @@ export type Balance = {
   balance: bigint;
 };
 
+export const empty = (): Balance => {
+  return {
+    balance: BigInt(0),
+  };
+};
+
 export const concat = (...balances: Balance[]) => {
   return balances.reduce(
     (acc, next) => {

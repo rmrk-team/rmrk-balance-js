@@ -35,11 +35,9 @@ async function main() {
     $RMRK.karura.balance(address),
   ]);
 
-  console.log({
-    moonbalance,
-    karurabalance,
-    total: moonbalance.balance + karurabalance.balance,
-  });
+  const total = $RMRK.concat(moonbalance, karurabalance);
+
+  console.log($RMRK.format(total));
 }
 
 main();
@@ -69,19 +67,13 @@ const total$ = combineLatest([
   bifrostBalance$,
 ]).pipe(
   map(([statemine, moonriver, karura, bifrost]) => {
-    return {
-      balance:
-        statemine.balance +
-        moonriver.balance +
-        karura.balance +
-        bifrost.balance,
-    };
+    return $RMRK.concat(statemine, moonriver, karura, bifrost);
   })
 );
 
 // Print total user RMRK balance
 total$.subscribe((total) => {
-  console.log({ total });
+  console.log($RMRK.format(total.balance));
 });
 ```
 
