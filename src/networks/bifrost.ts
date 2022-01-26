@@ -3,7 +3,7 @@ import { BIFROST_ASSET_ID } from "..";
 import * as A from "../types/address";
 import * as N from "../types/network-balance";
 
-export const bifrost = N.implement<ApiPromise, A.Type.SS58>({
+export const bifrost: N.NetworkBalance<ApiPromise, A.Type.SS58> = N.implement({
   addressType: A.Type.SS58,
   read: async (api, address) => {
     return api.query.tokens.accounts(address, { Token: BIFROST_ASSET_ID });

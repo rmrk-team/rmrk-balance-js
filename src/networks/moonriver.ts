@@ -3,7 +3,7 @@ import { MONRIVER_ASSET_ID } from "..";
 import * as A from "../types/address";
 import * as N from "../types/network-balance";
 
-export const moonriver = N.implement<ApiPromise, A.Type.ETH>({
+export const moonriver: N.NetworkBalance<ApiPromise, A.Type.ETH> = N.implement({
   addressType: A.Type.ETH,
   read: async (api, address) => {
     const assetIdU128 = api.createType("U128", MONRIVER_ASSET_ID);
