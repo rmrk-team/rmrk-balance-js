@@ -15,6 +15,13 @@ yarn add | npm install @rmrk-team/rmrk-balance-js
 
 ## Quickstart
 
+### CLI
+
+```bash
+npm install -g @rmrk-team/rmrk-balance-js
+rmrk-balance -a YOUR_ADDRESS
+```
+
 ### Promise
 
 ```typescript
@@ -140,11 +147,4 @@ const total$ = combineLatest([statemineBalance$, bifrostBalance$]).pipe(
 total$.subscribe((total) => {
   console.log($RMRK.format(total));
 });
-```
-
-### CLI
-
-```bash
-npm install -g @rmrk-team/rmrk-balance-js
-rmrk-balance -a YOUR_ADDRESS
 ```
