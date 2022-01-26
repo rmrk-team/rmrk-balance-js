@@ -7,18 +7,13 @@ Read balances of the chains that support the $RMRK token. The following chains a
 - [x] Karura
 - [x] Bifrost
 
-## Quickstart
+## Install
 
 ```
 yarn add | npm install @rmrk-team/rmrk-balance-js
 ```
 
-### CLI
-
-```bash
-npm install -g @rmrk-team/rmrk-balance-js
-rmrk-balance -a YOUR_ADDRESS
-```
+## Quickstart
 
 ### Promise
 
@@ -145,4 +140,11 @@ const total$ = combineLatest([statemineBalance$, bifrostBalance$]).pipe(
 total$.subscribe((total) => {
   console.log($RMRK.format(total));
 });
+```
+
+### CLI
+
+```bash
+npm install -g @rmrk-team/rmrk-balance-js
+rmrk-balance -a YOUR_ADDRESS
 ```
