@@ -1,1 +1,6 @@
 export const TOKEN_DECIMALS = 10;
+
+export const STATEMINE_ASSET_ID = 8;
+export const BIFROST_ASSET_ID = "RMRK";
+export const KARURA_ASSET_ID = 0;
+export const MONRIVER_ASSET_ID = "182365888117048807484804376330534607370";

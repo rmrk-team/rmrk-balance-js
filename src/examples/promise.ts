@@ -1,24 +1,22 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import * as moonriver from "../chains/moonriver";
-import * as karura from "../chains/karura";
+import { moonriver } from "../chains/moonriver";
+import { karura } from "../chains/karura";
 
 async function main() {
-  const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
-
-  moonriver.provideApi(
+  moonriver.provideContext(
     ApiPromise.create({
       provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
     })
   );
-  karura.provideApi(
+  karura.provideContext(
     ApiPromise.create({
       provider: new WsProvider("wss://karura.polkawallet.io"),
     })
   );
 
   const [moonbalance, karurabalance] = await Promise.all([
-    moonriver.balance(address),
-    karura.balance(address),
+    moonriver.balance("0xfbea1b97406C6945D07F50F588e54144ea8B684f"),
+    karura.balance("D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM"),
   ]);
 
   console.log({

@@ -1,10 +1,10 @@
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { combineLatest, map } from "rxjs";
 
-import * as statemine from "../chains/statemine";
-import * as moonriver from "../chains/moonriver";
-import * as karura from "../chains/karura";
-import * as bifrost from "../chains/bifrost";
+import { statemine } from "../chains/statemine";
+import { moonriver } from "../chains/moonriver";
+import { karura } from "../chains/karura";
+import { bifrost } from "../chains/bifrost";
 
 const address = "D6HSL6nGXHLYWSN8jiL9MSNixH2F2o382KkHsZAtfZvBnxM";
 
@@ -40,25 +40,25 @@ total$.subscribe((total) => {
 // Can be done at a later time than starting the subscriptions.
 // They will wait for the apis to be ready.
 
-statemine.provideApi(
+statemine.provideContext(
   ApiPromise.create({
     provider: new WsProvider("wss://statemine-rpc.polkadot.io"),
   })
 );
 
-moonriver.provideApi(
+moonriver.provideContext(
   ApiPromise.create({
     provider: new WsProvider("wss://wss.moonriver.moonbeam.network"),
   })
 );
 
-karura.provideApi(
+karura.provideContext(
   ApiPromise.create({
     provider: new WsProvider("wss://karura.polkawallet.io"),
   })
 );
 
-bifrost.provideApi(
+bifrost.provideContext(
   ApiPromise.create({
     provider: new WsProvider("wss://bifrost-rpc.liebi.com/ws"),
   })
