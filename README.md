@@ -88,7 +88,7 @@ $RMRK.moonriver.provideContext(
   })
 );
 
-$RMRK.moonriver.balance("0xfv...6c1h").then(({ balance }) => {
+$RMRK.moonriver.balance("0xfv...6c1h").then((balance) => {
   console.log($RMRK.format(balance));
 });
 ```
