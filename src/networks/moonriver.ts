@@ -15,7 +15,7 @@ export const moonriver: N.NetworkBalance<ApiPromise, A.Type.ETH> = N.implement({
   },
   decode: (payload: any) => {
     return {
-      balance: BigInt(payload.balance.toString()),
+      balance: BigInt(payload.balance?.toString() || 0),
     };
   },
 });

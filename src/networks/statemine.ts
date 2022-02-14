@@ -14,7 +14,7 @@ export const statemine: N.NetworkBalance<ApiPromise, A.Type.SS58> = N.implement(
     },
     decode: (payload: any) => {
       return {
-        balance: BigInt(payload.balance.toString()),
+        balance: BigInt(payload.balance?.toString() || 0),
       };
     },
   }
