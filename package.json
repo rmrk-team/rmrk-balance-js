@@ -30,13 +30,11 @@
     "access": "public"
   },
   "dependencies": {
+    "@polkadot/api": "^7.8.1",
     "@stdlib/assert-is-error": "^0.0.7",
     "colors": "^1.4.0",
     "rxjs": "^7.2.0",
     "web3": "^1.7.0",
     "yargs": "^17.3.1"
-  },
-  "peerDependencies": {
-    "@polkadot/api": "^7.8.1"
   }
 }
