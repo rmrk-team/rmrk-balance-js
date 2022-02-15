@@ -12,7 +12,8 @@
     "build": "rm -rf ./dist && yarn run build:esm && yarn run build:cjs",
     "build:esm": "tsc --declaration --module es2020 --target es2017 --outDir dist/esm",
     "build:cjs": "tsc --declaration --target es2017 --module commonjs --outDir dist/cjs",
-    "prepublishOnly": "yarn build && chmod +x ./dist/cjs/cli.js"
+    "prepublishOnly": "yarn build && chmod +x ./dist/cjs/cli.js",
+    "release": "yarn build && yarn changeset publish"
   },
   "bin": {
     "rmrk-balance": "./dist/cjs/cli.js"
