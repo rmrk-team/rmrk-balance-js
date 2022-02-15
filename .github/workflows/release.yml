@@ -17,9 +17,9 @@ jobs:
           fetch-depth: 0
 
       - name: Setup Node.js 16.x
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v1
         with:
-          node-version: 16.x
+          node-version: '16'
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
