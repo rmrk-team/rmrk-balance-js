@@ -4,7 +4,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "version": "0.0.11-beta-rc3",
+  "version": "0.0.11-beta-rc7",
   "author": {
     "name": "Jørn Andre Tangen @gorillatron"
   },
