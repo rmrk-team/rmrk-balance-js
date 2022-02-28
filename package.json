@@ -4,7 +4,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "version": "0.0.11-beta-rc9",
+  "version": "0.0.11-beta-rc10",
   "author": {
     "name": "Jørn Andre Tangen @gorillatron"
   },
@@ -30,7 +30,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@polkadot/api": "^7.8.1",
+    "@polkadot/api": "^7.10.1",
     "@stdlib/assert-is-error": "^0.0.7",
     "colors": "^1.4.0",
     "rxjs": "^7.2.0",
