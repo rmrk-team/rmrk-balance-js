@@ -4,7 +4,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
-  "version": "0.0.11-beta-rc13",
+  "version": "0.0.11-beta-rc14",
   "author": {
     "name": "RMRK Team"
   },
@@ -19,7 +19,7 @@
     "rmrk-balance": "./dist/cjs/cli.js"
   },
   "devDependencies": {
-    "@polkadot/api": "^7.15.1",
+    "@polkadot/api": "^8.1.1",
     "@changesets/cli": "^2.20.0",
     "typescript": "^4.6.3"
   },
@@ -38,6 +38,6 @@
     "yargs": "^17.3.1"
   },
   "peerDependencies": {
-    "@polkadot/api": "^7.x"
+    "@polkadot/api": "^8.x"
   }
 }
