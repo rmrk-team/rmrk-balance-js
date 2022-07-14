@@ -25,6 +25,5 @@ export const concat = (...balances: Balance[]) => {
 export const format = (balance: Balance) =>
   formatBalance(
     balance.balance,
-    { withSi: false, forceUnit: "-" },
-    TOKEN_DECIMALS
+    { withSi: false, forceUnit: "-", decimals: TOKEN_DECIMALS },
   );
