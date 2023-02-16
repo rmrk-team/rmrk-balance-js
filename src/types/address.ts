@@ -1,4 +1,4 @@
-import web3 from "web3";
+import { isAddress as isEthAddress } from '@ethersproject/address';
 import isError from "@stdlib/assert-is-error";
 import { isValidSubstrateAddress } from "../lib/isSubstrateAddress";
 
@@ -29,7 +29,7 @@ export const is = <T extends Type>(
 };
 
 export const wrap = (address: string): Address<Type> | FormatError => {
-  if (web3.utils.isAddress(address)) return { type: Type.ETH, raw: address };
+  if (isEthAddress(address)) return { type: Type.ETH, raw: address };
   else if (isValidSubstrateAddress(address))
     return { type: Type.SS58, raw: address };
   else
